@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'student', 
+    'employee'  # ✅ REQUIRED
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,14 +80,15 @@ WSGI_APPLICATION = 'learning26.wsgi.application'
 
 DATABASES = {
     'default': {
-       'ENGINE':'django.db.backends.postgresql',
-       'NAME':'learning26',
-       'USER':'postgres',
-       'PASSWORD':'2235',
-       'HOST':'localhost',
-       'PORT':'2235',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'learning26',      # database name
+        'USER': 'postgres',        # postgres username
+        'PASSWORD':'2235',        # your postgres password
+        'HOST': 'localhost',
+        'PORT': '2235',
     }
-    }
+}
+
 
 
 
