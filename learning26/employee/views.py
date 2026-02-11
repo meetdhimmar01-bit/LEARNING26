@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Employee
-from .forms import EmployeeForm,CourseForm
+from .forms import EmployeeForm,CourseForm,PlayerForm,teacherForm
 
 # Create your views here.
 def employeeList(request):
@@ -98,6 +98,28 @@ def createCourse(request):
     else:
         form = CourseForm()
         return render(request,"employee/createCourse.html",{"form":form})
+    
+
+
+
+def createPlayer(request):
+    if request.method == "POST":
+        form = PlayerForm(request.POST)  # csrf token + form fields data
+        form.save()  # insert into player table
+        return HttpResponse("PLAYER CREATED...")
+    else:
+        form = PlayerForm()
+    return render(request, "employee/createPlayer.html", {"form": form})
+
+
+def createteacher(request):
+    if request.method == "POST":
+        form = teacherForm(request.POST)  # csrf token + form fields data
+        form.save()  # insert into player table
+        return HttpResponse("teacher CREATED...")
+    else:
+        form = teacherForm()
+    return render(request, "employee/createteacher.html", {"form": form})
 
 
 

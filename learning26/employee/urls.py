@@ -1,13 +1,18 @@
 from . import views
 from django.urls import path
-urlpatterns = [
+urlpatterns = [ 
     path('employeeList/',views.employeeList),
     path('employeeFilter/',views.employeeFilter),
     path('createemployee/',views.createEmployee),
     path('createEmployeeWithForm/',views.createEmployeeWithForm),
-    path('createCourse/',views.createCourse)
+    path('createCourse/',views.createCourse),
+    path('createPlayer/', views.createPlayer),
+     path('createteacher/', views.createteacher),
+    
+    ]
+   
     
 
-]
+
     
 
