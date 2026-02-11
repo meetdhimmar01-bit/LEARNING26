@@ -6,6 +6,8 @@ urlpatterns = [
     path('createemployee/',views.createEmployee),
     path('createEmployeeWithForm/',views.createEmployeeWithForm),
     path('createCourse/',views.createCourse)
+    
+
 ]
     
 

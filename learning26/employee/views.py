@@ -1,4 +1,5 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render
+from django.http import HttpResponse
 from .models import Employee
 from .forms import EmployeeForm,CourseForm
 
@@ -88,11 +89,15 @@ def createEmployeeWithForm(request):
         #form object create --> html
         form = EmployeeForm() #form object        
         return render(request,"employee/createEmployeeForm.html",{"form":form})
+    
 def createCourse(request):
-     if request.method == "POST":
+    if request.method == "POST":
         form = CourseForm(request.POST) #csrftoken,form alll fileds data
         form.save() #create.. insert into table 
         return HttpResponse("COURSE CREATED...")
-     else:
+    else:
         form = CourseForm()
-        return render(request,"employee/createCourse.html",{"form":form})    
+        return render(request,"employee/createCourse.html",{"form":form})
+
+
+

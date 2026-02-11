@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'student', 
-    'employee'  # ✅ REQUIRED
+    'employee',
+               # ✅ REQUIRED
 ]
 
 
