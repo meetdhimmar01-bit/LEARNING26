@@ -22,6 +22,7 @@ from django.urls import include
 
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",views.home,name="home"),
@@ -30,5 +31,6 @@ urlpatterns = [
 
     #app level url config
     path("student/",include("student.urls")),
-    path("employee/",include("employee.urls"))   
+    path("employee/",include("employee.urls")),
+      
 ]
