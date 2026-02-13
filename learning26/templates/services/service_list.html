@@ -27,8 +27,8 @@
     <td>{{ s.created_date }}</td>
 
     <td>
+       <a href="{% url 'services:deleteService' s.id %}">Delete</a>
         <a href="{% url 'services:updateService' s.id %}">update</a>
-        <a href="{% url 'services:deleteService' s.id %}">Delete</a>
 
     </td>
 </tr>
