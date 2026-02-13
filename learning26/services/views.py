@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, redirect
 from .models import Service
 from .forms import ServiceForm
@@ -41,3 +38,21 @@ def deleteService(request, id):
     service.delete()
 
     return redirect('services:serviceList')
+
+# Update View
+def updateService(request, id):
+
+    service = Service.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, instance=service)
+
+        if form.is_valid():
+            form.save()
+            return redirect('services:serviceList')
+
+    else:
+        form = ServiceForm(instance=service)
+
+    return render(request, 'services/service_form.html', {'form': form})
+
