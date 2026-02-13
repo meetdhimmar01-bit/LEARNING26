@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 
     'student', 
     'employee',
+    'services'
+
                # ✅ REQUIRED
 ]
 
