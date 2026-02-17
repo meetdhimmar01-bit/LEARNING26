@@ -1,7 +1,8 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .models import Employee
-from django.db.models import Avg, Sum
+from django.db.models import Q
 from .forms import EmployeeForm,CourseForm
+from django.contrib import messages
 
 # from django.shortcuts import render
 
@@ -9,22 +10,27 @@ from .forms import EmployeeForm,CourseForm
 
 # Create your views here.
 def employeeList(request):
-    search_query = request.GET.get('search', '')
+    search_query=request.GET.get('search', '')
     
-    employees = Employee.objects.all()
+    employees=Employee.objects.all()
+    
+    query=request.GET.get('query')
+    
+    if query:
+        employees = employees.filter(
+            Q(name__icontains=query) |
+            Q(post__icontains=query) |
+            Q(join_date__icontains=query)|
+            Q(id__icontains=query) 
+        )
 
-    if search_query:
-        employees = employees.filter(name__icontains=search_query)
 
     total_employees = employees.count()
-    avg_salary = employees.aggregate(Avg('salary'))['salary__avg']
-    total_salary = employees.aggregate(Sum('salary'))['salary__sum']
+  
 
     context = {
         'employees': employees,
         'total_employees': total_employees,
-        'avg_salary': avg_salary,
-        'total_salary': total_salary,
         'search_query': search_query,
     }
 
