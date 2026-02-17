@@ -3,23 +3,7 @@
 
 <h1 class="dashboard-title">Employee Dashboard</h1>
 
-<!-- SUMMARY CARDS -->
-<div class="card-container">
-    <div class="card">
-        <h3>Total Employees</h3>
-        <p>{{ total_employees }}</p>
-    </div>
 
-    <div class="card">
-        <h3>Average Salary</h3>
-        <p>₹ {{ avg_salary|default:0 }}</p>
-    </div>
-
-    <div class="card">
-        <h3>Total Salary</h3>
-        <p>₹ {{ total_salary|default:0 }}</p>
-    </div>
-</div>
 
 <!-- SEARCH + ADD -->
 <div class="top-bar">
@@ -56,11 +40,7 @@
             <td>{{ emp.post }}</td>
             <td>
                 <a href="{% url 'employee:updateEmployee' emp.id %}" class="btn btn-yellow">Update</a>
-                <a href="{% url 'employee:deleteEmployee' emp.id %}" 
-                   class="btn btn-red"
-                   onclick="return confirm('Are you sure you want to delete this employee?');">
-                   Delete
-                </a>
+                <a href="{% url 'employee:deleteEmployee' emp.id %}" class="btn btn-red"onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
             </td>
         </tr>
         {% empty %}

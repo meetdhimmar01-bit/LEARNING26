@@ -138,7 +138,7 @@ def deleteEmployee(request,id):
     Employee.objects.filter(id=id).delete()
     print("delete employee")
     #return HttpResponse("delete employee")
-    return redirect("employeeList") #url name from urls.py
+    return redirect('employee:employeeList')
 
 def filterEmployee(request):
     print("filter employee called...")
@@ -154,7 +154,7 @@ def updateEmployee(request,id):
     if request.method == "POST":
         form = EmployeeForm(request.POST,instance=employee)
         form.save()
-        return redirect("employeeList")
+        return redirect('employee:employeeList')
     else:
         form = EmployeeForm(instance=employee)    
         return render(request,"employee/updateEmployee.html",{"form":form})
