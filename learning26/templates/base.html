@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Management</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <h2>Employee Management</h2>
+        <div>
+            <a href="{% url 'employee:employeeList' %}">Home</a>
+            
+        </div>
+    </nav>
+
+    <div class="main">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        © 2026 Django Project | Designed by Meet
+    </footer>
+
+</body>
+</html>

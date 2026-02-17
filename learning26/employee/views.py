@@ -1,18 +1,43 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .models import Employee
+from django.db.models import Avg, Sum
 from .forms import EmployeeForm,CourseForm
 
 # from django.shortcuts import render
-from .models import Employee
+
 # from .forms import EmployeeForm
 
 # Create your views here.
 def employeeList(request):
-    #employees = Employee.objects.all() #select * from employee
-    employees = Employee.objects.all().order_by("id").values()
-    #employees = Employee.objects.all().values_list()
-    print(employees)
-    return render(request, 'employee/employeeList.html',{"employees":employees})#Create your views here.
+    search_query = request.GET.get('search', '')
+    
+    employees = Employee.objects.all()
+
+    if search_query:
+        employees = employees.filter(name__icontains=search_query)
+
+    total_employees = employees.count()
+    avg_salary = employees.aggregate(Avg('salary'))['salary__avg']
+    total_salary = employees.aggregate(Sum('salary'))['salary__sum']
+
+    context = {
+        'employees': employees,
+        'total_employees': total_employees,
+        'avg_salary': avg_salary,
+        'total_salary': total_salary,
+        'search_query': search_query,
+    }
+
+    return render(request, 'employee/employeeList.html', context)
+def addEmployee(request):
+    form = EmployeeForm()
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('employee:employeeList')
+    return render(request, 'employee/addEmployee.html', {'form': form})
+
 
 def employeeFilter(request):
     #where select  from employee where name = "raj"
