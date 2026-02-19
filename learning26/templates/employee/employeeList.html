@@ -1,77 +1,117 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
 
+<!-- Cards -->
+<div class="row mb-4">
 
-<h1 class="dashboard-title">Employee Dashboard</h1>
-
-<!-- SEARCH + ADD -->
-<div class="top-bar">
-    <form method="GET" style="margin-bottom:20px;">
-
-    <input type="text"
-           name="query"
-           placeholder="Search by id, name, post or date (YYYY-MM-DD)"
-           value="{{ request.GET.query }}">
-
-    <button type="submit" class="btn">
-    Search
-</button>
-
-
-    <a href="{% url 'employee:employeeList' %}" class="btn">
-    Reset
-</a>
->
-
-</form>
-
-
-    <a href="{% url 'employee:addEmployee' %}" class="btn btn-green">+ Add Employee</a>
-</div>
-
-<div style="display:flex; gap:20px; margin-bottom:25px;">
-    <div style="background:white; padding:20px; border-radius:12px; flex:1;">
-        <h3>Total Employees</h3>
-        <h2>{{ employees|length }}</h2>
+    <div class="col-md-4">
+        <div class="card-box bg-primary-custom">
+            <h6>Total Employees</h6>
+            <h3>{{ total_employees }}</h3>
+        </div>
     </div>
 
-<!-- TABLE -->
-<table class="styled-table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Salary</th>
-            <th>Join Date</th>
-            <th>Post</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+    <div class="col-md-4">
+        <div class="card-box bg-success-custom">
+            <h6>Active Records</h6>
+            <h3>{{ total_employees }}</h3>
+        </div>
+    </div>
 
-    <tbody>
-        {% for emp in employees %}
-        <tr>
-            <td>{{ emp.id }}</td>
-            <td>{{ emp.name }}</td>
-            <td>{{ emp.age }}</td>
-            <td>₹ {{ emp.salary }}</td>
-            <td>{{ emp.join_date }}</td>
-            <td>{{ emp.post }}</td>
-            <td>
-                <a href="{% url 'employee:updateEmployee' emp.id %}" class="btn btn-yellow">Update</a>
-                <a href="{% url 'employee:deleteEmployee' emp.id %}" class="btn btn-red"onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="7">No Employees Found</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <div class="col-md-4">
+        <div class="card-box bg-warning-custom">
+            <h6>System Status</h6>
+            <h3>Online</h3>
+        </div>
+    </div>
 
 </div>
-{% endblock %}
 
+<!-- Search -->
+<form method="GET" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="query" class="form-control" placeholder="Search employee...">
+        <button class="btn btn-dark">Search</button>
+    </div>
+</form>
+
+<!-- Table -->
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Salary</th>
+                    <th>Join Date</th>
+                    <th>Post</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for emp in employees %}
+                <tr>
+                    <td>{{ emp.id }}</td>
+                    <td>{{ emp.name }}</td>
+                    <td>{{ emp.age }}</td>
+                    <td>₹ {{ emp.salary }}</td>
+                    <td>{{ emp.join_date }}</td>
+                    <td>{{ emp.post }}</td>
+                    <td>
+                        <a href="{% url 'employee:updateEmployee' emp.id %}" class="btn btn-sm btn-warning">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <button class="btn btn-sm btn-danger"
+        data-bs-toggle="modal"
+        data-bs-target="#deleteModal{{ emp.id }}">
+    <i class="fa fa-trash"></i>
+</button>
+
+                    </td>
+                </tr>
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal{{ emp.id }}" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title">Confirm Delete</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+
+          <div class="modal-body">
+            Are you sure you want to delete
+            <strong>{{ emp.name }}</strong> ?
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+
+            <a href="{% url 'employee:deleteEmployee' emp.id %}"
+               class="btn btn-danger">
+               Yes, Delete
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+</tbody>
+
+        
+            
+
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}

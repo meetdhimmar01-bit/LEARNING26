@@ -7,11 +7,17 @@ urlpatterns = [
 
     path('', views.serviceList, name='serviceList'),
 
+
     path('add/', views.addService, name='addService'),
 
     path('delete/<int:id>/', views.deleteService, name='deleteService'),
     
-    path('update/<int:id>/', views.updateService, name='updateService')
+    path('update/<int:id>/', views.updateService, name='updateService'),
+    
+    path('servicelist/', views.serviceList, name='serviceList'),
+
+    path("create/", views.createService, name="createService"),
+
 
 
 

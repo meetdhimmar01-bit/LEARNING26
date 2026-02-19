@@ -1,28 +1,123 @@
-{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Employee Management</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Employee Admin Panel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            overflow-x: hidden;
+            background-color: #f4f6f9;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            height: 100vh;
+            background: #111827;
+            padding-top: 20px;
+            position: fixed;
+            width: 230px;
+        }
+
+        .sidebar h4 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #cbd5e1;
+            padding: 12px 20px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        /* Main */
+        .main {
+            margin-left: 230px;
+            padding: 20px;
+        }
+
+        /* Navbar */
+        .topbar {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-box {
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+        }
+
+        .bg-primary-custom { background: #6366f1; }
+        .bg-success-custom { background: #10b981; }
+        .bg-warning-custom { background: #f59e0b; }
+
+        table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    </style>
 </head>
+
 <body>
 
-    <nav class="navbar">
-        <h2>Employee Management</h2>
+<!-- Sidebar -->
+<div class="sidebar">
+    <h4><i class="fa fa-user-shield"></i> ADMIN</h4>
+
+    <a href="{% url 'employee:employeeList' %}">
+        <i class="fa fa-users"></i> Employee List
+    </a>
+
+    <a href="{% url 'employee:addEmployee' %}">
+        <i class="fa fa-user-plus"></i> Add Employee
+    </a>
+
+    <a href="/services/">
+        <i class="fa fa-briefcase"></i> Service List
+    </a>
+
+    <a href="/services/create/">
+        <i class="fa fa-plus-circle"></i> Create Service
+    </a>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+    <!-- Topbar -->
+    <div class="topbar d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Dashboard</h5>
         <div>
-            <a href="{% url 'employee:employeeList' %}">Home</a>
-            
+            <i class="fa fa-user-circle"></i> Welcome, Admin
         </div>
-    </nav>
+    </div>
 
-    <div class="main-container">
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% endblock %}
 
-
-
-    <footer>
-        © 2026 Django Project | Designed by Meet
-    </footer>
+</div>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

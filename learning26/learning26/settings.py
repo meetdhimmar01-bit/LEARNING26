@@ -42,7 +42,9 @@ INSTALLED_APPS = [
 
     'student', 
     'employee',
-    'services'
+    'services',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
                # ✅ REQUIRED
 ]
@@ -133,5 +135,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
  
