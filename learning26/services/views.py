@@ -8,20 +8,7 @@ def serviceList(request):
     services = Service.objects.all()
     return render(request,"services/serviceList.html",{"services":services})
 
-def createService(request):
 
-    if request.method =="POST":
-        form = ServiceForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("services:serviceList")
-
-        else:
-            return render(request,"services/createService.html",{"form":form})    
-    else:
-        form = ServiceForm()
-        return render(request,"services/createService.html",{"form":form})
-    
     
 
 

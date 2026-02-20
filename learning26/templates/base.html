@@ -75,6 +75,7 @@
             border-radius: 10px;
             overflow: hidden;
         }
+        
     </style>
 </head>
 
@@ -92,13 +93,15 @@
         <i class="fa fa-user-plus"></i> Add Employee
     </a>
 
-    <a href="/services/">
-        <i class="fa fa-briefcase"></i> Service List
-    </a>
+    <a href="{% url 'services:serviceList' %}">
+    <i class="fa fa-briefcase"></i>
+    <span>Service List</span>
+</a>
 
-    <a href="/services/create/">
-        <i class="fa fa-plus-circle"></i> Create Service
-    </a>
+<a href="{% url 'services:createService' %}">
+    <i class="fa fa-plus-circle"></i>
+    <span>Create Service</span>
+</a>
 </div>
 
 <!-- Main Content -->

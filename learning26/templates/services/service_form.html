@@ -1,17 +1,76 @@
-<h1>Add Service</h1>
+{% extends 'base.html' %}
+{% block content %}
 
-<form method="POST">
+<div class="container mt-5">
 
-    {% csrf_token %}
+    <div class="card shadow-lg border-0 rounded-4 animated-card">
+        <div class="card-header bg-primary text-white rounded-top-4">
+            <h4 class="mb-0">
+                {% if form.instance.pk %}
+                    ✏ Update Service
+                {% else %}
+                    ➕ Add New Service
+                {% endif %}
+            </h4>
+        </div>
 
-    {{ form.as_p }}
+        <div class="card-body p-4">
 
-    <button type="submit">Save</button>
+            <form method="POST">
+                {% csrf_token %}
 
-</form>
+                <!-- Name -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Service Name</label>
+                    <input type="text"
+                           name="name"
+                           value="{{ form.name.value|default:'' }}"
+                           class="form-control {% if form.name.errors %}is-invalid{% endif %}">
+                    
+                    {% for error in form.name.errors %}
+                        <div style="color:red; font-size:14px;">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
 
-<br>
+                <!-- Description -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Description</label>
+                    <textarea name="description"
+                              class="form-control {% if form.description.errors %}is-invalid{% endif %}">{{ form.description.value|default:'' }}</textarea>
 
-<a href="{% url 'services:serviceList' %}">
-    Back
-</a>
+                    {% for error in form.description.errors %}
+                        <div style="color:red; font-size:14px;">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Price -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Price</label>
+                    <input type="number"
+                           name="price"
+                           value="{{ form.price.value|default:'' }}"
+                           class="form-control {% if form.price.errors %}is-invalid{% endif %}">
+
+                    {% for error in form.price.errors %}
+                        <div style="color:red; font-size:14px;">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    Save Service
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

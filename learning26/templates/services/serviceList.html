@@ -8,15 +8,68 @@
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
+        <th>Actions</th>
     </tr>
 
-    {% for service in services %}
-    <tr>
-        <td>{{ service.id }}</td>
-        <td>{{ service.name }}</td>
-        <td>{{ service.price }}</td>
-    </tr>
-    {% endfor %}
-</table>
+    <tbody>
+{% for service in services %}
+
+<tr>
+    <td>{{ service.id }}</td>
+    <td>{{ service.name }}</td>
+    <td>{{ service.price }}</td>
+
+    <td>
+        <!-- Update Button -->
+        <a href="{% url 'services:updateService' service.id %}" 
+           class="btn btn-sm btn-warning">
+            Update
+        </a>
+
+        <!-- Delete Button (opens modal) -->
+        <button type="button"
+                class="btn btn-sm btn-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal{{ service.id }}">
+            Delete
+        </button>
+    </td>
+</tr>
+
+
+<!-- ✅ ADD DELETE MODAL HERE (AFTER </tr>) -->
+<div class="modal fade" id="deleteModal{{ service.id }}" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        Are you sure you want to delete 
+        <strong>{{ service.name }}</strong> ?
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" 
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+            Cancel
+        </button>
+
+        <a href="{% url 'services:deleteService' service.id %}" 
+           class="btn btn-danger">
+            Yes, Delete
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+</tbody>
 
 {% endblock %}
